@@ -109,6 +109,30 @@ def last_index(filename, user_date):
         return ndays
     elif time_format == 3:
         return ndays*4
+    
+def list_variables(filename):    
+    dset = Dataset(filename)
+    variables = dset.variables.keys()
+    variables = map(lambda x: x.encode('ascii','replace'), variables)
+    return variables
 
-def generation():
-    pass
+def getLonLat():
+    file1 = Dataset(files[0][0], mode='r')
+    list_of_variables = list_variables(files[0][0])
+    for i in list_of_variables:
+        if 'lat' in i:
+            lats_var_name = i
+        if 'lon' in i:
+            lons_var_name = i
+    lons = file1.variables[lons_var_name][:]
+    lats = file1.variables[lats_var_name][:]
+    file1.close()
+    return lons,lats
+    
+def start_generation():
+    number_of_files = len(files)
+    
+    lons,lats = getLonLat()
+    
+    for i in range(number_of_files):
+        file = Dataset(files[i][0], mode='r')
