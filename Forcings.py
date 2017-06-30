@@ -12,10 +12,6 @@ def netCDF_file(filename):
     selected_file = []
     selected_file.append(filename)
     return selected_file
-##    print "Opened in Forcings %s"%(files[0])
-
-##    print files
-
 
 def selected_param(selected_file, parameter):
     selected_file.append(parameter)
@@ -27,17 +23,17 @@ def addtoFiles(selected_file):
 def chgdir(directory):
     os.chdir(directory)
 
-def entered_date(date):
-    date = date
-##    print date    
+def entered_date(dt):
+    global user_date
+    user_date = dt
 
 def desired_time_format(des_time):
+    global time_form
     time_form = int(des_time)
-##    print time_form
 
 def choice_for_temp(choice_temp):
+    global choice
     choice = int(choice_temp)
-##    print choice
 
 def time_format(filename):
     ''' Time format
