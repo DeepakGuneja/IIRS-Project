@@ -29,7 +29,6 @@ class DemoPanel(wx.Panel):
         self.combo = wx.ComboBox(self, size = wx.DefaultSize, choices=[])
 ##        self.text = wx.TextCtrl(self, wx.ID_ANY, style=wx.TE_MULTILINE)
         self.widgetMaker(self.combo, [])
-##        self.combo.Bind(wx.EVT_COMBOBOX, self.text_return)
         
         self.param = wx.StaticText(self, -1,"Parameters", style=wx.ALIGN_LEFT)
         Sizer.Add(self.param,0, wx.ALIGN_LEFT)
@@ -47,23 +46,21 @@ class DemoPanel(wx.Panel):
         self.select_date = wx.TextCtrl(self, -1, "")
         Sizer.Add(self.select_date,0, wx.ALIGN_RIGHT)
 
-        f.entered_date(self.select_date.GetValue())
-
         self.format = wx.StaticText(self, -1,"Enter desired time format (3/6/12/24):   ")
         Sizer.Add(self.format,0, wx.ALIGN_RIGHT)
         
         self.select_format = wx.TextCtrl(self, -1, "")
-        Sizer.Add(self.select_format,0, wx.ALIGN_RIGHT)
-        
-##        f.desired_time_format(self.select_date.GetValue())
-        print self.select_date.GetValue()
+        Sizer.Add(self.select_format,0, wx.ALIGN_RIGHT)       
+
         self.temp_format = wx.StaticText(self, -1,"Enter 0 for Tmax/Tmin or 1 for Avg Temp:   ")
         Sizer.Add(self.temp_format,0, wx.ALIGN_RIGHT)
         
         self.select_temp = wx.TextCtrl(self, -1, "")
         Sizer.Add(self.select_temp,0, wx.ALIGN_RIGHT)
 
-##        f.choice_for_temp(self.select_temp.GetValue())
+        OkBtn1 = wx.Button(self,-1, label="Ok")
+        OkBtn1.Bind(wx.EVT_BUTTON, self.option_select)
+        Sizer.Add(OkBtn1, 0, wx.ALIGN_RIGHT|wx.ALL)
         
         self.disp = wx.StaticText(self, -1, "Parameters selected from each file:\n", style=wx.ALIGN_CENTRE)
         Sizer.Add(self.disp,-1, wx.EXPAND)
@@ -86,10 +83,16 @@ class DemoPanel(wx.Panel):
         
         self.SetSizer(Sizer)
 
+    def option_select(self, event):
+        f.entered_date(self.select_date.GetValue())
+        f.desired_time_format(self.select_format.GetValue())
+        f.choice_for_temp(self.select_temp.GetValue())
+
     def file_selected(self, event):
         global selected_file
-        selected_file = map(lambda x: x.encode('ascii','replace'), selected_file)
         f.addtoFiles(selected_file)
+        selected_file = map(lambda x: x.encode('ascii','replace'), selected_file)
+        
         self.select_param.AppendText(str(selected_file[0])+" - "+str(selected_file[1:])+"\n")
         
     def widgetMaker(self, widget, objects):
