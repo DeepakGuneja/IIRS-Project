@@ -67,7 +67,7 @@ def time_format(filename):
         return 3
     
    
-def start_index(filename, user_start_date):
+def start_index(filename, user_date):
     time_format = time_format(filename)
     dset = netCDF4.Dataset(filename)
     times = dset.variables['time']
@@ -75,7 +75,7 @@ def start_index(filename, user_start_date):
     
     date_first = jd11.strftime('%d/%m/%Y')
     
-    a = datetime.strptime(user_start_date[0:10], "%d/%m/%Y")
+    a = datetime.strptime(user_date[0:10], "%d/%m/%Y")
     b = datetime.strptime(date_first, "%d/%m/%Y")
     delta = a - b
     ndays = delta.days
@@ -89,7 +89,7 @@ def start_index(filename, user_start_date):
         return ndays*4
 
     
-def last_index(filename, user_end_date):
+def last_index(filename, user_date):
     time_format = time_format(filename)
     dset = netCDF4.Dataset(filename)
     times = dset.variables['time']
@@ -97,7 +97,7 @@ def last_index(filename, user_end_date):
     
     date_first = jd11.strftime('%d/%m/%Y')
     
-    a = datetime.strptime(user_end_date[12:], "%d/%m/%Y")
+    a = datetime.strptime(user_date[12:], "%d/%m/%Y")
     b = datetime.strptime(date_first, "%d/%m/%Y")
     delta = a - b
     ndays = delta.days
