@@ -159,6 +159,6 @@ def start_generation():
         all_file_data.append(ele)
         fh.close()
         
-    
+    time_format = time_format(files[0][0])
        
     
