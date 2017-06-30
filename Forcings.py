@@ -29,15 +29,15 @@ def chgdir(directory):
 
 def entered_date(date):
     date = date
-    print date    
+##    print date    
 
 def desired_time_format(des_time):
     time_form = int(des_time)
-    print time_form
+##    print time_form
 
 def choice_for_temp(choice_temp):
     choice = int(choice_temp)
-    print choice
+##    print choice
 
 def time_format(filename):
     ''' Time format
