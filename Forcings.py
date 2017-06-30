@@ -142,6 +142,7 @@ def start_generation():
             ele.append(fh.variables[param][:])
         all_file_data.append(ele)
         fh.close()
+        
     
        
     
