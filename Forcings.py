@@ -128,7 +128,23 @@ def getLonLat():
     lats = file1.variables[lats_var_name][:]
     file1.close()
     return lons,lats
-    
+
+def getTemp():
+    for _file in files:
+        file_open = Dataset(_file[0], mode='r')
+        list_of_variables = list_variables(file_open)
+        list_of_variables = map(lambda x: x.encode('ascii','replace'), List_of_variables)
+        
+        for var in list_of_variables:
+            unit = file_open.variables[var].units
+            if unit=='K':
+                temp = file_open.variables[var][:]
+                temp = map(lambda x: x-273.15 ,temp)
+                return temp
+            elif unit=='C':
+                temp = file_open.variables[var][:]
+                return temp
+
 def start_generation():
     number_of_files = len(files)
     lons,lats = getLonLat()
