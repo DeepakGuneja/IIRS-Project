@@ -137,7 +137,8 @@ def start_generation():
     for i in range(number_of_files):
         ele = []
         fh = Dataset(files[i][0], mode='r')
-        for param in files[i][1:]:
+        encoded_params = map(lambda x: x.encode('ascii','replace'), files[i][1:])
+        for param in encoded_params:
             ele.append(fh.variables[param][:])
         all_file_data.append(ele)
         fh.close()
