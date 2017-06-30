@@ -132,11 +132,15 @@ def getLonLat():
 def start_generation():
     number_of_files = len(files)
     lons,lats = getLonLat()
-    all_file_data = []
+    
+    all_file_data = []  ##data stored in all params for all files 
     for i in range(number_of_files):
         ele = []
-        file = Dataset(files[i][0], mode='r')
+        fh = Dataset(files[i][0], mode='r')
         for param in files[i][1:]:
-            ele.append(file.variables[param][:])
+            ele.append(fh.variables[param][:])
         all_file_data.append(ele)
-            
+        fh.close()
+    
+       
+    
