@@ -110,3 +110,5 @@ def last_index(filename, user_date):
     elif time_format == 3:
         return ndays*4
 
+def generation():
+    pass
